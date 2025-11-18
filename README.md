@@ -31,7 +31,61 @@ This tool automates the creation of audience book presentations by:
    pip install -r requirements.txt
    ```
 
-## Usage
+## Quick Start
+
+There are two ways to use this tool:
+
+### Option A: Automatic Config Generation (Recommended)
+
+1. Prepare `template.pptx` and `data.csv`
+2. Write persona descriptions in markdown files
+3. Run the config generator to create `config.json` automatically
+4. Run the audience book updater
+
+**See [CONFIG_GENERATOR_GUIDE.md](CONFIG_GENERATOR_GUIDE.md) for the complete workflow.**
+
+### Option B: Manual Config File
+
+1. Prepare `template.pptx`, `data.csv`, and manually write `config.json`
+2. Run the audience book updater
+
+**See below for manual config instructions.**
+
+## Usage - Automatic Config Generation (Recommended)
+
+### Step 1: Prepare Your Files
+
+Place the following files in the same directory:
+
+1. **`template.pptx`** - Your master PowerPoint template with pre-named placeholders
+2. **`data.csv`** - Your tab-separated CSV file containing survey data
+3. **`persona1.md`, `persona2.md`, ...`** - Markdown files with persona descriptions
+
+Use `persona_template.md` as a template for creating your persona files.
+
+### Step 2: Run the Config Generator
+
+```bash
+python generate_config.py data.csv persona1.md persona2.md persona3.md
+```
+
+The generator will:
+- Auto-detect audiences in your CSV
+- Parse persona information from markdown
+- Interactively help you select charts
+- Generate `config.json` automatically
+
+### Step 3: Run the Updater
+
+```bash
+python audience_book_updater.py
+```
+
+The output file will be: `[ClientName] - Audience Book - [Date].pptx`
+
+**For detailed instructions, see [CONFIG_GENERATOR_GUIDE.md](CONFIG_GENERATOR_GUIDE.md)**
+
+## Usage - Manual Config File
 
 ### Step 1: Prepare Your Files
 
@@ -131,22 +185,27 @@ Your PowerPoint template must use the following naming convention for shapes:
 
 ## CSV Data Structure
 
-Your `data.csv` file should have the following structure:
+Your `data.csv` file should be **tab-separated** (not comma-separated) with the following structure:
 
-```csv
-Category,Subcategory,Audience1_Audience %,Audience1_Index,Audience2_Audience %,Audience2_Index,...
-Media,Newspapers,45.2,102,38.1,95,...
-Media,Magazines,32.5,87,41.2,110,...
-Social Media,Facebook,78.3,98,82.1,103,...
+```
+CAT	SUBCAT	GenPop_Minutes	GenPop_Audience%	GenPop_Index	Battery Intenders_Minutes	Battery Intenders_Audience%	Battery Intenders_Index
+MEDIA TYPOLOGY INDEX	Read a Newspaper		29.00%	100		49.60%	171
+SOCIAL MEDIA	Facebook		67.60%	100		57.40%	85
 ```
 
 **Required Columns**:
-- `Category`: Main category grouping
-- `Subcategory`: Specific item within the category
-- `{AudienceName}_Audience %`: Percentage value for the audience
-- `{AudienceName}_Index`: Index value for the audience
+- **Column 1** (`CAT`): Main category grouping
+- **Column 2** (`SUBCAT`): Specific item within the category
+- **Repeating pattern for each audience**:
+  - `{AudienceName}_Minutes`: Time spent (optional, can be empty)
+  - `{AudienceName}_Audience%`: Percentage value for the audience
+  - `{AudienceName}_Index`: Index value for the audience
 
-The `{AudienceName}` must match the `csvAudienceName` in your `config.json`.
+**Important Notes**:
+- The file must be **tab-separated** (TSV format), not comma-separated
+- The `{AudienceName}` must match the `csvAudienceName` in your `config.json`
+- When using the config generator, audience names are auto-detected from column headers
+- The `_Minutes` column is optional and can be empty
 
 ## Configuration File Details
 
