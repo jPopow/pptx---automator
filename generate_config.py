@@ -185,8 +185,34 @@ class CSVAudienceAnalyzer:
         if not self.csv_file_path.exists():
             raise FileNotFoundError(f"CSV file not found: {self.csv_file_path}")
 
-        # Read CSV
-        self.df = pd.read_csv(self.csv_file_path, sep='\t')
+        # Try to read CSV with tab separator first
+        try:
+            self.df = pd.read_csv(self.csv_file_path, sep='\t')
+        except Exception as e:
+            raise ValueError(f"Error reading CSV file: {str(e)}")
+
+        # Validate we have enough columns
+        if len(self.df.columns) < 2:
+            raise ValueError(
+                f"CSV file must have at least 2 columns (CAT and SUBCAT).\n"
+                f"Found {len(self.df.columns)} column(s): {list(self.df.columns)}\n\n"
+                f"Common issues:\n"
+                f"  1. File is not tab-separated (must use tabs, not commas)\n"
+                f"  2. File has wrong encoding\n"
+                f"  3. First line should be headers: CAT, SUBCAT, then audience columns\n\n"
+                f"Expected format:\n"
+                f"  CAT<tab>SUBCAT<tab>Audience1_Minutes<tab>Audience1_Audience%<tab>...\n"
+            )
+
+        # Check for audience columns
+        audience_cols = [col for col in self.df.columns if '_Audience%' in col or '_Index' in col]
+        if len(audience_cols) == 0:
+            raise ValueError(
+                f"No audience columns found in CSV.\n"
+                f"Column names must include '_Audience%' or '_Index'.\n"
+                f"Found columns: {list(self.df.columns)}\n\n"
+                f"Example column names: 'GenPop_Audience%', 'Battery Intenders_Index'\n"
+            )
 
         # Detect audiences
         self.audiences = self._detect_audiences()

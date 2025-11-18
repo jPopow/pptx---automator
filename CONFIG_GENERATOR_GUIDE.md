@@ -39,6 +39,31 @@ CAT	SUBCAT	Audience1_Minutes	Audience1_Audience%	Audience1_Index	Audience2_Minut
   - `{AudienceName}_Audience%`
   - `{AudienceName}_Index`
 
+### Checking Your CSV File
+
+**Before running the generator**, verify your CSV format:
+
+```bash
+python check_csv.py data.csv
+```
+
+This diagnostic tool will:
+- Detect if your file is tab-separated or comma-separated
+- Identify all audience columns
+- Validate the file structure
+- Show sample data
+- Provide specific fix instructions if needed
+
+**Example output:**
+```
+✓ CSV FORMAT IS VALID FOR CONFIG GENERATOR
+
+You can now run:
+  python generate_config.py data.csv persona1.md persona2.md
+```
+
+If your file is comma-separated, the tool will show you how to convert it to tab-separated format.
+
 ## Step 1: Create Persona Markdown Files
 
 ### Using the Template
@@ -300,13 +325,38 @@ This catches any issues before running the main updater.
 
 ## Troubleshooting
 
+### "index 1 is out of bounds for axis 0 with size 1"
+This means your CSV file only has 1 column instead of multiple tab-separated columns.
+
+**Solution:**
+```bash
+python check_csv.py data.csv
+```
+
+The diagnostic tool will tell you if your file is:
+- Comma-separated (needs conversion to tab-separated)
+- Has incorrect encoding
+- Missing proper column headers
+
+**Quick fix if file is comma-separated:**
+1. Open in Excel or Google Sheets
+2. File → Save As → Tab Delimited Text (.txt or .tsv)
+3. Rename to data.csv
+4. Run `check_csv.py` again to verify
+
 ### "CSV file not found"
 - Ensure your CSV file path is correct
 - Use tab-separated format (not comma-separated)
 
+### "No audience columns found in CSV"
+- Column headers must follow the pattern: `{AudienceName}_Audience%` and `{AudienceName}_Index`
+- Run `python check_csv.py data.csv` to diagnose
+- Example valid headers: `Battery Intenders_Audience%`, `GenPop_Index`
+
 ### "Could not auto-match" for all personas
 - Check that your CSV has the column pattern `{AudienceName}_Audience%`
 - Verify the `Source Audience` field in your markdown matches CSV audience names
+- Run `python check_csv.py data.csv` to see detected audience names
 
 ### "Error loading persona.md"
 - Verify your markdown has all required sections
