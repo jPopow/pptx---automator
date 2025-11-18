@@ -1,0 +1,68 @@
+{
+  "clientName": "Your Client Name Here",
+  "personas": [
+    {
+      "templateSlot": 1,
+      "csvAudienceName": "Budget Bargainers",
+      "qualitativeText": {
+        "Persona_Name": "Ben, 24",
+        "Persona_Title": "Non-School Leavers",
+        "Persona_Bio": "This is Ben. He's been in his admin role for five years and is looking to upskill. He's budget-conscious but values quality education that offers real career progression.",
+        "Thinks_Feels": "Ben thinks about his future career prospects and feels motivated to advance but worried about costs. He wants to ensure any investment in education will pay off in better job opportunities.",
+        "Sees": "Ben sees promotional materials online, hears about courses from colleagues, and notices advertisements on social media platforms he uses daily.",
+        "Says_Does": "Ben says he wants to 'future-proof' his career. He researches course reviews extensively, compares prices, and looks for payment plans or discounts before enrolling.",
+        "Hears": "Ben hears from friends who have taken similar courses, reads online reviews, and listens to podcasts about career development and continuing education."
+      }
+    },
+    {
+      "templateSlot": 2,
+      "csvAudienceName": "Go Getters",
+      "qualitativeText": {
+        "Persona_Name": "Priya, 36",
+        "Persona_Title": "Post Grad Candidates",
+        "Persona_Bio": "This is Priya. As a marketing manager with over 10 years of experience, she's pursuing postgraduate studies to reach executive leadership positions. She's ambitious and willing to invest in premium education.",
+        "Thinks_Feels": "Priya thinks strategically about her career trajectory and feels confident in her abilities. She's excited about new challenges and feels ready to take on more responsibility in her organization.",
+        "Sees": "Priya sees industry thought leaders, attends professional conferences, follows business publications, and keeps up with trends through LinkedIn and professional networks.",
+        "Says_Does": "Priya says she wants to 'lead with impact' and 'drive organizational change.' She actively networks, seeks mentorship, and enrolls in executive programs that align with her goals.",
+        "Hears": "Priya hears from her professional network, mentors in leadership positions, industry publications, and thought leaders in her field about the value of advanced credentials."
+      }
+    }
+  ],
+  "charts": [
+    {
+      "chartSlot": 1,
+      "title": "Media Typology",
+      "category": "Media",
+      "subcategories": [
+        {"csvName": "Newspapers", "displayName": "Newspapers"},
+        {"csvName": "Magazines", "displayName": "Magazines"},
+        {"csvName": "Free-to-air TV", "displayName": "Free-to-air TV"},
+        {"csvName": "Subscription TV", "displayName": "Subscription TV"},
+        {"csvName": "Radio", "displayName": "Radio"}
+      ]
+    },
+    {
+      "chartSlot": 2,
+      "title": "Social Media Usage",
+      "category": "Social Media",
+      "subcategories": [
+        {"csvName": "Facebook", "displayName": "Facebook"},
+        {"csvName": "Instagram", "displayName": "Instagram"},
+        {"csvName": "LinkedIn", "displayName": "LinkedIn"},
+        {"csvName": "Twitter", "displayName": "Twitter"},
+        {"csvName": "TikTok", "displayName": "TikTok"}
+      ]
+    },
+    {
+      "chartSlot": 3,
+      "title": "Online Activities",
+      "category": "Online Activities",
+      "subcategories": [
+        {"csvName": "Online Shopping", "displayName": "Online Shopping"},
+        {"csvName": "Streaming Video", "displayName": "Streaming Video"},
+        {"csvName": "Online Gaming", "displayName": "Online Gaming"},
+        {"csvName": "Email", "displayName": "Email"}
+      ]
+    }
+  ]
+}
